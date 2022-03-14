@@ -110,10 +110,20 @@ export default function CandidatesList() {
     setFilterSeniority(parseInt(event.target.value));
   }
 
+  const listHeaderItemStyle: React.CSSProperties = {
+    display: 'inline-block',
+    padding: '10px',
+    position: 'relative'
+  };
+
   return (
-    <>
-      <SelectSort value={sortMode} onChange={onSortChange}/>
-      <SelectSeniority value={filterSeniority} onChange={onFilterChange}/>
+    <div style={{width: '900px'}}>
+      <div style={{float: 'left'}}>
+        <Typography style={listHeaderItemStyle}>Сортировка:</Typography>
+        <SelectSort value={sortMode} onChange={onSortChange}/>
+        <Typography style={listHeaderItemStyle}>Квалификация:</Typography>
+        <SelectSeniority value={filterSeniority} onChange={onFilterChange}/>
+      </div>
       <Box fill overflow={{ vertical: 'auto', horizontal: 'hidden' }} style={{
         display: 'flex',
         flexDirection: 'column',
@@ -121,6 +131,6 @@ export default function CandidatesList() {
       }}>
         {candidatesList}
       </Box>
-    </>
+    </div>
   );
 }

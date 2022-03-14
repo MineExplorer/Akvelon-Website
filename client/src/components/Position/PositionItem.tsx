@@ -14,11 +14,10 @@ export default function PositionItem({ position }: PositionItemProps) {
         navigate(path);
       }
 
-    return <section>
+    return <section className="positionItem">
         <h3>{position.title}</h3>
         <a>Знание технологий: {position.techStack}</a>
-        <a>Описание</a>
-        <a>{position.description || 'Без описания'}</a>
+        <a>{position.description || 'Нет описания'}</a>
         <button onClick={redirectTo}>Перейти к вакансии</button>
     </section>
 }

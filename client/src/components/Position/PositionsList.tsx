@@ -1,10 +1,20 @@
 import { useEffect, useState } from 'react';
 import Typography from '@mui/material/Typography';
+import styled from 'styled-components';
 
 import { fetchFunctionApi } from '../../helpers';
 import { Position, State } from '../../data';
 import PositionItem from './PositionItem';
 import React from 'react';
+
+const PositionsBox = styled.div` {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    position: relative;
+    min-width: 800px;
+}`
 
 export default function PositionsList() {
     const [items, setItems] = useState([]);
@@ -44,8 +54,8 @@ export default function PositionsList() {
       ));
 
     return (
-        <>
+        <PositionsBox>
             {positionsList}
-        </>
+        </PositionsBox>
     );
 }

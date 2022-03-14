@@ -35,7 +35,7 @@ export const ExtraInfo = styled(FlexCol)`
 `;
 
 export const StyledLink = styled(Link)`
-  width: 900px;
+  width: 100%;
   color: ${props => (props.color ? normalizeColor(props.color, props.theme) : 'initial')};
   display: inline-block;
   box-sizing: border-box;
