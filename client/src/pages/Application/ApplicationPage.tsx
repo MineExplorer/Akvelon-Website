@@ -7,7 +7,7 @@ import styled from 'styled-components';
 
 import { SelectSeniority, SelectEnglish, SelectStatus, SelectPosition } from '../../components/Select';
 import Header from '../../components/Header';
-import { fetchFunctionApi, postFunctionApi, putFunctionApi } from '../../helpers';
+import { deleteFunctionApi, fetchFunctionApi, postFunctionApi, putFunctionApi } from '../../helpers';
 import { Candidate } from '../../data';
 import './ApplicaitonPage.css';
 
@@ -48,6 +48,11 @@ export default function ApplicationPage(props: {mode: 'create' | 'edit'}) {
 	function onChange (event: React.ChangeEvent<HTMLInputElement>) {
         setData({ ...data, [event.target.name]: event.target.value });
     };
+
+	async function deleteCandidate() {
+		deleteFunctionApi(`/candidates/${candidateId}`);
+		navigate('../candidates');
+	}
 
 	async function onSubmit (event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
@@ -119,9 +124,10 @@ export default function ApplicationPage(props: {mode: 'create' | 'edit'}) {
 					{props.mode === 'create' ? 'Отправить' : 'Сохранить'}
 				</Button>
 				<Button
-				style={{display: props.mode === 'create' ? 'none' : 'inline-box'}}
-				variant="contained"
-				startIcon={<DeleteIcon />}>
+				  style={{display: props.mode === 'create' ? 'none' : 'inline-box'}}
+				  variant="contained"
+				  onClick={deleteCandidate}
+				  startIcon={<DeleteIcon />}>
 					Удалить
 				</Button>
 			</div>
