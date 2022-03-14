@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Button } from '@mui/material';
 import SaveIcon from '@mui/icons-material/Save';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -23,6 +23,8 @@ export default function ApplicationPage(props: {mode: 'create' | 'edit'}) {
 
 	const [ data, setData ] = useState({positionId: positionId} as Candidate);
 	const [ loaded, setLoaded ] = useState(false);
+
+	let navigate = useNavigate();
 
   	useEffect(() => {
     	if (loaded || props.mode !== 'edit') return;
@@ -52,6 +54,7 @@ export default function ApplicationPage(props: {mode: 'create' | 'edit'}) {
 		if (props.mode === 'create') {
         	await postFunctionApi('/candidates', JSON.stringify(data));
 			alert("Отправлено");
+        	navigate(`../../positions`);
 		} else {
 			await putFunctionApi(`/candidates/${candidateId}`, JSON.stringify(data));
 			alert("Сохранено");
