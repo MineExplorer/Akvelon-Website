@@ -5,6 +5,7 @@ import { Candidate, Position } from '../../data';
 import { Button, Typography } from '@mui/material';
 import { SelectSeniority, SelectEnglish, SelectStatus } from '../../components/Select';
 import Header from '../../components/Header';
+import { SelectPosition } from '../../components/Select/SelectPosition';
 
 export default function ApplicationPage(props: {mode: 'create' | 'edit'}) {
 	const urlId = parseInt(useParams().id);
@@ -12,28 +13,15 @@ export default function ApplicationPage(props: {mode: 'create' | 'edit'}) {
 	let positionId = props.mode == 'create' ? urlId : 0;
 
 	const [ data, setData ] = useState({positionId: positionId} as Candidate);
-	const [ positions, setPositions ] = useState([] as Position[]);
 	const [ loaded, setLoaded ] = useState(false);
 
   	useEffect(() => {
-    	if (loaded) return;
+    	if (loaded || props.mode !== 'edit') return;
 
-		if (props.mode === 'edit') {
-			loadData()
-			.then(
-				(result) => {
-					setData(result);
-				}
-			)
-			.catch(error => {
-				alert(error);
-			});
-		}
-
-		loadPosition()
+		loadData()
 		.then(
 			(result) => {
-				setPositions(result);
+				setData(result);
 				setLoaded(true);
 			}
 		)
@@ -44,10 +32,6 @@ export default function ApplicationPage(props: {mode: 'create' | 'edit'}) {
   
 	async function loadData () {
 		return await fetchFunctionApi<Candidate>(`/candidates/${candidateId}`);
-	}
-	
-	async function loadPosition() {
-		return await fetchFunctionApi<Position[]>("/positions");
 	}
 	
 	function onChange (event: React.ChangeEvent<HTMLInputElement>) {
@@ -71,7 +55,9 @@ export default function ApplicationPage(props: {mode: 'create' | 'edit'}) {
 			display: 'inline-grid'
 		}}>
 			<Typography>Имя</Typography>
-			<input name="fullName" value={data.fullName} onChange={onChange}/>	
+			<input name="fullName" value={data.fullName} onChange={onChange}/>
+			<Typography>Позиция</Typography>
+			<SelectPosition value={data.positionId} onChange={onChange}/>
 			<Typography>Город</Typography>
 			<input name="city" value={data.city} onChange={onChange}/>
 			<Typography>Email</Typography>

@@ -11,6 +11,10 @@
             Email = candidate.Email;
             FullName = candidate.Name;
             PositionId = candidate.PositionId;
+            if (candidate.Position != null)
+            {
+                Position = candidate.Position;
+            }
             RecruiterId = candidate.RecruiterId;
             City = candidate.City;
             Phone = candidate.Phone;
