@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Button } from '@mui/material';
+import SaveIcon from '@mui/icons-material/Save';
 import DeleteIcon from '@mui/icons-material/Delete';
 import styled from 'styled-components';
 
-import { SelectSeniority, SelectEnglish, SelectStatus } from '../../components/Select';
+import { SelectSeniority, SelectEnglish, SelectStatus, SelectPosition } from '../../components/Select';
 import Header from '../../components/Header';
-import { SelectPosition } from '../../components/Select/SelectPosition';
 import { fetchFunctionApi, postFunctionApi, putFunctionApi } from '../../helpers';
 import { Candidate } from '../../data';
 import './ApplicaitonPage.css';
@@ -51,8 +51,10 @@ export default function ApplicationPage(props: {mode: 'create' | 'edit'}) {
         event.preventDefault();
 		if (props.mode === 'create') {
         	await postFunctionApi('/candidates', JSON.stringify(data));
+			alert("Отправлено");
 		} else {
 			await putFunctionApi(`/candidates/${candidateId}`, JSON.stringify(data));
+			alert("Сохранено");
 		}
     };
 
@@ -60,7 +62,7 @@ export default function ApplicationPage(props: {mode: 'create' | 'edit'}) {
 		<>
 		<Header/>
 		<form onSubmit={onSubmit}>
-		<div style={{
+		<div className='formbox' style={{
 			display: 'inline-grid',
 			width: '400px'
 		}}>
@@ -109,13 +111,17 @@ export default function ApplicationPage(props: {mode: 'create' | 'edit'}) {
 				<SelectStatus value={data.status} onChange={onChange}/>
 			</InputRow>
 			
-			<Button type='submit' variant="outlined">{props.mode === 'create' ? 'Отправить' : 'Сохранить'}</Button>
-			<Button
-			  style={{display: props.mode === 'create' ? 'none' : 'inline-box'}}
-			  variant="outlined"
-			  startIcon={<DeleteIcon />}>
-				Delete
-			</Button>
+			<div style={{display: 'inline-box', alignItems: 'center'}}>
+				<Button type='submit' variant="contained" startIcon={<SaveIcon />}>
+					{props.mode === 'create' ? 'Отправить' : 'Сохранить'}
+				</Button>
+				<Button
+				style={{display: props.mode === 'create' ? 'none' : 'inline-box'}}
+				variant="contained"
+				startIcon={<DeleteIcon />}>
+					Удалить
+				</Button>
+			</div>
 		</div>
 		</form>
 		</>

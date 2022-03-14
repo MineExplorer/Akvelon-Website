@@ -5,3 +5,10 @@ div a {
 div input {
     width: 250px;
 }
+
+.formbox button {
+    background-color: #3b8cf5;
+    color:#ffffff;
+    margin: 10px;
+    width: 150px;
+}

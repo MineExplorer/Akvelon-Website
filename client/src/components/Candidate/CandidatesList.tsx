@@ -6,15 +6,15 @@ import Typography from '@mui/material/Typography';
 import CandidateItem from './CandidateItem';
 import { fetchFunctionApi } from '../../helpers';
 import { Candidate, Seniority, State } from '../../data';
-import { SelectSort } from '../Select';
-import { SelectSeniority } from '../Select';
+import { SelectSort, SelectSeniority, SelectPosition } from '../Select';
 
 type SortMode = 'AZ' | 'ZA' | 'New' | 'Old';
 
 export default function CandidatesList() {
   const [data, setData] = useState([]);
   const [sortMode, setSortMode] = useState('AZ' as SortMode);
-  const [filterSeniority, setFilterSeniority] = useState(Seniority.NotAvailable)
+  const [filterSeniority, setFilterSeniority] = useState(Seniority.NotAvailable);
+  const [filterPosition, setFilterPosition] = useState(0);
   const [state, setState] = useState(State.Loading);
 
   useEffect(() => {
@@ -91,9 +91,21 @@ export default function CandidatesList() {
   }
 
   function filterCandidates(candidate: Candidate) {
-    if (filterSeniority === Seniority.NotAvailable) return true;
-    
-    return candidate.seniority == filterSeniority;
+    let validSeniority: boolean;
+    let validPosition: boolean;
+    if (filterSeniority === Seniority.NotAvailable) {
+      validSeniority = true;
+    } else {
+      validSeniority = candidate.seniority == filterSeniority;
+    }
+
+    if (filterPosition === 0) {
+      validPosition = true;
+    } else {
+      validPosition = candidate.positionId == filterPosition;
+    }
+
+    return validSeniority && validPosition;
   }
 
   const candidatesList = data.filter(filterCandidates).sort(compareCandidates).map(item => (
@@ -106,8 +118,12 @@ export default function CandidatesList() {
     setSortMode(event.target.value as SortMode);
   }
 
-  function onFilterChange(event: React.ChangeEvent<HTMLInputElement>) {
+  function onSeniorityFilterChange(event: React.ChangeEvent<HTMLInputElement>) {
     setFilterSeniority(parseInt(event.target.value));
+  }
+
+  function onPositionFilterChange(event: React.ChangeEvent<HTMLInputElement>) {
+    setFilterPosition(parseInt(event.target.value));
   }
 
   const listHeaderItemStyle: React.CSSProperties = {
@@ -122,7 +138,9 @@ export default function CandidatesList() {
         <Typography style={listHeaderItemStyle}>Сортировка:</Typography>
         <SelectSort value={sortMode} onChange={onSortChange}/>
         <Typography style={listHeaderItemStyle}>Квалификация:</Typography>
-        <SelectSeniority value={filterSeniority} onChange={onFilterChange}/>
+        <SelectSeniority value={filterSeniority} onChange={onSeniorityFilterChange}/>
+        <Typography style={listHeaderItemStyle}>Вакансия:</Typography>
+        <SelectPosition value={filterPosition} onChange={onPositionFilterChange}/>
       </div>
       <Box fill overflow={{ vertical: 'auto', horizontal: 'hidden' }} style={{
         display: 'flex',

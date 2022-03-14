@@ -30,6 +30,7 @@ export function SelectPosition(props: {value: number, onChange: any}) {
     });
 
     return <select name="positionId" value={props.value} onChange={props.onChange}>
+        <option value={0}>Не указано</option>
         {positionsList}
     </select>
 }

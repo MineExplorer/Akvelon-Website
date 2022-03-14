@@ -13,7 +13,7 @@ const PositionsBox = styled.div` {
     align-items: flex-start;
     text-align: left;
     position: relative;
-    min-width: 800px;
+    width: 800px;
 }`
 
 export default function PositionsList() {
