@@ -6,7 +6,6 @@ import { normalizeColor } from 'grommet/utils';
 
 import { Candidate, CandidateStatusText, Seniority, SeniorityText } from '../../data';
 import { Typography } from '@mui/material';
-import { create } from 'domain';
 
 export interface FlexRowProps {
   justify?: string;

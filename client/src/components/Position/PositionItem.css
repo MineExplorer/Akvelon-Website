@@ -5,3 +5,8 @@
 .positionItem a {
     padding-bottom: 10px;
 }
+
+.positionItem button {
+    background-color: #3b8cf5;
+    color:#ffffff;
+}

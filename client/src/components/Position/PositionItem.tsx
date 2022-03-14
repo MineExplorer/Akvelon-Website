@@ -1,3 +1,4 @@
+import { Button } from "@mui/material";
 import { useNavigate } from "react-router";
 import { Position } from "../../data";
 import './PositionItem.css';
@@ -18,6 +19,6 @@ export default function PositionItem({ position }: PositionItemProps) {
         <h3>{position.title}</h3>
         <a>Знание технологий: {position.techStack}</a>
         <a>{position.description || 'Нет описания'}</a>
-        <button onClick={redirectTo}>Перейти к вакансии</button>
+        <Button onClick={redirectTo} size='small' variant="contained">Подать резюме</Button>
     </section>
 }
