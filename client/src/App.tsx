@@ -21,9 +21,9 @@ function App() {
             <Route path="/" element={<Navigate replace to="/main" />} />
             <Route path="/main" element = {<InfoPage/>}/>
             <Route path="/positions" element = {<PositionsPage/>}/>
-            <Route path="/positions/:id" element = {<EditPosition/>}/>
+            <Route path="/application/:id" element = {<ApplicationPage mode={"create"}/>}/>
             <Route path="/candidates" element = {<CandidatesPage/>}/>
-            <Route path="/candidates/:id" element = {<ApplicationPage/>}/>
+            <Route path="/candidates/:id" element = {<ApplicationPage mode={"edit"}/>}/>
             <Route path="/contacts" element = {<ContactsPage/>}/>
             <Route path="/login" element = {<LoginPage/>}/>
           </Routes>

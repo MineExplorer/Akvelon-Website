@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import { Link } from 'react-router-dom';
 import { normalizeColor } from 'grommet/utils';
 
-import { Candidate, CandidateStatusText, Seniority, SeniorityText } from '../data';
+import { Candidate, CandidateStatusText, Seniority, SeniorityText } from '../../data';
 import { Typography } from '@mui/material';
 import { create } from 'domain';
 

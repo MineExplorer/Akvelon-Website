@@ -1,6 +1,6 @@
-import { Seniority } from "../data";
+import { Seniority } from "../../data";
 
-export default function (props: {value: number, onChange: any}) {
+export function SelectSeniority(props: {value: number, onChange: any}) {
     return <select name="seniority" value={props.value} onChange={props.onChange}>
         <option value={Seniority.NotAvailable}>Не указано</option>
         <option value={Seniority.Junior}>Junior</option>

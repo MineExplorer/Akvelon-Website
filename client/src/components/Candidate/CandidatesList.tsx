@@ -1,14 +1,13 @@
-import React, { createContext, useEffect, useState } from 'react';
-import { observer } from 'mobx-react';
+import React, { useEffect, useState } from 'react';
 import { Box } from 'grommet';
 import MaterialUIBox from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
 import CandidateItem from './CandidateItem';
-import { fetchFunctionApi } from '../helpers';
-import { Candidate, Seniority, State } from '../data';
-import SelectSort from './SelectSort';
-import SelectSeniority from './SelectSeniority';
+import { fetchFunctionApi } from '../../helpers';
+import { Candidate, Seniority, State } from '../../data';
+import { SelectSort } from '../Select';
+import { SelectSeniority } from '../Select';
 
 type SortMode = 'AZ' | 'ZA' | 'New' | 'Old';
 
@@ -82,17 +81,17 @@ export default function CandidatesList() {
     if (sortMode === 'ZA') {
       return compareCandidateNames(candidate1.fullName, candidate2.fullName, true);
     }
-    if (sortMode == 'New') {
+    if (sortMode === 'New') {
       return compareCandidateCreated(candidate1.created, candidate2.created, false);
     }
-    if (sortMode == 'Old') {
+    if (sortMode === 'Old') {
       return compareCandidateCreated(candidate1.created, candidate2.created, true);
     }
     return 0;
   }
 
   function filterCandidates(candidate: Candidate) {
-    if (filterSeniority == Seniority.NotAvailable) return true;
+    if (filterSeniority === Seniority.NotAvailable) return true;
     
     return candidate.seniority == filterSeniority;
   }

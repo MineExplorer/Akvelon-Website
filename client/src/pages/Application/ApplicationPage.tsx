@@ -1,25 +1,40 @@
 import { useEffect, useState } from 'react';
 import {useParams} from 'react-router-dom';
 import { fetchFunctionApi, postFunctionApi, putFunctionApi } from '../../helpers';
-import { Candidate } from '../../data';
+import { Candidate, Position } from '../../data';
 import { Button, Typography } from '@mui/material';
-import SelectSeniority from '../../components/SelectSeniority';
-import SelectEnglish from '../../components/SelectEnglish';
+import { SelectSeniority, SelectEnglish, SelectStatus } from '../../components/Select';
 import Header from '../../components/Header';
 
-export default function ApplicationPage() {
-	const candidateId = useParams().id;
-	const [ data, setData ] = useState({} as Candidate);
-	const [ state, setState ] = useState(candidateId === 'new' ? 'create' : 'loading');
+export default function ApplicationPage(props: {mode: 'create' | 'edit'}) {
+	const urlId = parseInt(useParams().id);
+	let candidateId = props.mode == 'edit' ? urlId : 0;
+	let positionId = props.mode == 'create' ? urlId : 0;
+
+	const [ data, setData ] = useState({positionId: positionId} as Candidate);
+	const [ positions, setPositions ] = useState([] as Position[]);
+	const [ loaded, setLoaded ] = useState(false);
 
   	useEffect(() => {
-    	if (state !== 'loading') return;
+    	if (loaded) return;
 
-		loadData()
+		if (props.mode === 'edit') {
+			loadData()
+			.then(
+				(result) => {
+					setData(result);
+				}
+			)
+			.catch(error => {
+				alert(error);
+			});
+		}
+
+		loadPosition()
 		.then(
 			(result) => {
-				setData(result);
-				setState('loaded');
+				setPositions(result);
+				setLoaded(true);
 			}
 		)
 		.catch(error => {
@@ -27,8 +42,12 @@ export default function ApplicationPage() {
 		});
 	});
   
-	const loadData = async () => {
-	  return await fetchFunctionApi<Candidate>(`/candidates/${candidateId}`);
+	async function loadData () {
+		return await fetchFunctionApi<Candidate>(`/candidates/${candidateId}`);
+	}
+	
+	async function loadPosition() {
+		return await fetchFunctionApi<Position[]>("/positions");
 	}
 	
 	function onChange (event: React.ChangeEvent<HTMLInputElement>) {
@@ -37,7 +56,7 @@ export default function ApplicationPage() {
 
 	async function onSubmit (event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
-		if (state === 'create') {
+		if (props.mode === 'create') {
         	await postFunctionApi('/candidates', JSON.stringify(data));
 		} else {
 			await putFunctionApi(`/candidates/${candidateId}`, JSON.stringify(data));
@@ -69,8 +88,12 @@ export default function ApplicationPage() {
 			<SelectSeniority value={data.seniority} onChange={onChange}/>
 			<Typography>Уровень английского языка</Typography>
 			<SelectEnglish value={data.english} onChange={onChange}/>
+			<div style={{display: props.mode === 'create' ? 'none' : 'inline'}}>
+				<Typography>Статус</Typography>
+				<SelectStatus value={data.status} onChange={onChange}/>
+			</div>
 			
-			<Button type='submit'>{state === 'create' ? 'Отправить' : 'Сохранить'}</Button>
+			<Button type='submit'>{props.mode === 'create' ? 'Отправить' : 'Сохранить'}</Button>
 		</div>
 		</form>
 		</>

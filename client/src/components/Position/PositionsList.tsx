@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 import Typography from '@mui/material/Typography';
 
-import { fetchFunctionApi } from '../helpers';
-import { Position, State } from '../data';
+import { fetchFunctionApi } from '../../helpers';
+import { Position, State } from '../../data';
+import PositionItem from './PositionItem';
+import React from 'react';
 
 export default function PositionsList() {
     const [items, setItems] = useState([]);
@@ -35,13 +37,15 @@ export default function PositionsList() {
         return <Typography>Server unavailable</Typography>
     }
 
-  return (
-    <ul>
-        {items.map((item: Position) => (
-        <li key={item.id}>
-            {item.id} {item.title}
-        </li>
-        ))}
-    </ul>
-  );
+    const positionsList = items.map(item => (
+        <React.Fragment key={item.id}>
+          <PositionItem position={item} />
+        </React.Fragment>
+      ));
+
+    return (
+        <>
+            {positionsList}
+        </>
+    );
 }

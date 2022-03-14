@@ -1,6 +1,6 @@
-import { EnglishLevel } from "../data";
+import { EnglishLevel } from "../../data";
 
-export default function (props: {value: number, onChange: any}) {
+export function SelectEnglish(props: {value: number, onChange: any}) {
     return <select name="english" value={props.value} onChange={props.onChange}>
         <option value={EnglishLevel.A1}>A1</option>
         <option value={EnglishLevel.A2}>A2</option>

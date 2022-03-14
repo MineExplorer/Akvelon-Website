@@ -1,4 +1,4 @@
-import CandidatesList from '../../components/CandidatesList';
+import CandidatesList from '../../components/Candidate/CandidatesList';
 import Header from '../../components/Header';
 
 export default function CandidatesPage() {

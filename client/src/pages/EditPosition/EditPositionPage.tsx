@@ -3,7 +3,7 @@ import {useParams} from 'react-router-dom';
 import { fetchFunctionApi, postFunctionApi } from '../../helpers';
 import { Position } from '../../data';
 import { Button, Typography } from '@mui/material';
-import SelectSeniority from '../../components/SelectSeniority';
+import { SelectSeniority } from '../../components/Select';
 
 export default function CreatePositionPage() {
 	const positionId = useParams().id;
