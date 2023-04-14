@@ -1,15 +1,15 @@
-﻿namespace WebApi.Tests.ProductsController
-{
-    using System.Collections.Generic;
-    using Application.ViewModels;
-    using Infrastructure.EF;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.Extensions.Logging;
-    using WebAPI.MockFactory.Tests.Data;
-    using WebAPI.MockFactory.Tests.Factory.Interfaces;
-    using WebAPI.MockFactory.Tests.Utils;
-    using Xunit;
+﻿using System.Collections.Generic;
+using Application.ViewModels;
+using Infrastructure.EF;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using WebAPI.MockFactory.Tests.Data;
+using WebAPI.MockFactory.Tests.Factory.Interfaces;
+using WebAPI.MockFactory.Tests.Utils;
+using Xunit;
 
+namespace WebApi.Tests.PositionsController
+{
     public class DemoTest : BaseTest
     {
         [Fact]
@@ -19,20 +19,20 @@
             IDatabaseInitializer databaseInitializer = TestDataFactory.CreateDatabaseInitializer();
             databaseInitializer.InitializeDatabase((ILogger<DatabaseInitializer> logger, DatabaseContext databaseContext) =>
             {
-                databaseContext.AddRange(TestProducts.AllProducts);
+                databaseContext.AddRange(TestPositions.AllPositions);
                 databaseContext.SaveChanges();
             });
 
             IControllerFactory controllerFactory = TestDataFactory.CreateControllerFactory();
-            Controllers.ProductsController productsController = controllerFactory.CreateProductsController();
+            Controllers.PositionsController positionsController = controllerFactory.CreatePositionsController();
 
             // Act
-            var result = productsController.GetAll();
+            var result = positionsController.GetAll();
             var successResult = result.Result as OkObjectResult;
-            var listOfProducts = successResult.Value as List<ProductDto>;
+            var listOfPositions = successResult.Value as List<PositionDto>;
 
             // Assert
-            Assert.Equal(TestProducts.AllProducts.Count, listOfProducts.Count);
+            Assert.Equal(TestPositions.AllPositions.Count, listOfPositions.Count);
         }
     }
 }

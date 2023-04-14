@@ -17,9 +17,9 @@
             _loggerFactory = loggerFactory;
         }
 
-        public ProductsController CreateProductsController()
+        public PositionsController CreatePositionsController()
         {
-            return new ProductsController(_loggerFactory.CreateLogger<ProductsController>(), _serviceFactory.CreateProductService());
+            return new PositionsController(_loggerFactory.CreateLogger<PositionsController>(), _serviceFactory.CreatePositionService());
         }
     }
 }

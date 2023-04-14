@@ -1,23 +1,23 @@
-﻿namespace WebApi.Controllers
-{
-    using System;
-    using System.Collections.Generic;
-    using Application.DTO.Request;
-    using Application.Services;
-    using Application.ViewModels;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.Extensions.Logging;
+﻿using Application.DTO.Request;
+using Application.Interfaces;
+using Application.ViewModels;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
 
+namespace WebApi.Controllers
+{
     [ApiController]
     [Route("api/[controller]")]
     public class PositionsController : ControllerBase
     {
-        private readonly ILogger<PositionsController> logger;
-        private PositionService _positionService;
+        private readonly ILogger<PositionsController> _logger;
+        private IPositionService _positionService;
 
-        public PositionsController(ILogger<PositionsController> logger, PositionService positionService)
+        public PositionsController(ILogger<PositionsController> logger, IPositionService positionService)
         {
-            this.logger = logger;
+            _logger = logger;
             _positionService = positionService;
         }
 

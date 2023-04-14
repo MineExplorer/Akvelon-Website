@@ -4,6 +4,6 @@
 
     public interface IControllerFactory
     {
-        ProductsController CreateProductsController();
+        PositionsController CreatePositionsController();
     }
 }

@@ -1,9 +1,9 @@
-﻿namespace WebAPI.MockFactory.Tests.Factory.Interfaces
-{
-    using Domain.Repository;
+﻿using Infrastructure.Repositories;
 
+namespace WebAPI.MockFactory.Tests.Factory.Interfaces
+{
     public interface IRepositoryFactory
     {
-        IProductRepository CreateProductRepository();
+        PositionRepository CreatePositionRepository();
     }
 }

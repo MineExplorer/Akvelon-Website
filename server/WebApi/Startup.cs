@@ -10,6 +10,7 @@ namespace WebApi
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
     using Microsoft.OpenApi.Models;
+    using Application.Interfaces;
 
     public class Startup
     {
@@ -34,8 +35,8 @@ namespace WebApi
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApi", Version = "v1" });
             });
 
-            services.AddScoped<CandidateService>();
-            services.AddScoped<PositionService>();
+            services.AddScoped<ICandidateService, CandidateService>();
+            services.AddScoped<IPositionService, PositionService>();
             services.AddScoped<CandidateRepository>();
             services.AddScoped<PositionRepository>();
         }

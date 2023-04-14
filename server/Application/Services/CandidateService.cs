@@ -1,15 +1,15 @@
-﻿namespace Application.Services
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using Application.DTO.Request;
-    using Application.ViewModels;
-    using Domain.Enums;
-    using Domain.Models;
-    using Infrastructure.Repositories;
+﻿using Application.DTO.Request;
+using Application.Interfaces;
+using Application.ViewModels;
+using Domain.Enums;
+using Domain.Models;
+using Infrastructure.Repositories;
+using System.Collections.Generic;
+using System.Linq;
 
-    public class CandidateService
+namespace Application.Services
+{
+    public class CandidateService : ICandidateService
     {
         private CandidateRepository _candidateRepository;
 

@@ -1,10 +1,9 @@
-﻿namespace WebAPI.MockFactory.Tests.Factory
+﻿using Application.Interfaces;
+using Application.Services;
+using WebAPI.MockFactory.Tests.Factory.Interfaces;
+
+namespace WebAPI.MockFactory.Tests.Factory
 {
-    using Application.Interfaces;
-    using Application.Services;
-
-    using WebAPI.MockFactory.Tests.Factory.Interfaces;
-
     public class ServiceFactory : IServiceFactory
     {
         private readonly IRepositoryFactory _repositoryFactory;
@@ -14,9 +13,9 @@
             _repositoryFactory = repositoryFactory;
         }
 
-        public IProductService CreateProductService()
+        public IPositionService CreatePositionService()
         {
-            return new ProductService(_repositoryFactory.CreateProductRepository());
+            return new PositionService(_repositoryFactory.CreatePositionRepository());
         }
     }
 }
