@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using Application.DTO.Request;
+    using Application.Interfaces;
     using Application.Services;
     using Application.ViewModels;
     using Microsoft.AspNetCore.Mvc;
@@ -13,9 +14,9 @@
     public class CandidatesController : ControllerBase
     {
         private readonly ILogger<CandidatesController> logger;
-        private CandidateService _candidateService;
+        private ICandidateService _candidateService;
 
-        public CandidatesController(ILogger<CandidatesController> logger, CandidateService candidateService)
+        public CandidatesController(ILogger<CandidatesController> logger, ICandidateService candidateService)
         {
             this.logger = logger;
             _candidateService = candidateService;
